@@ -18,11 +18,11 @@ export default class Shop extends Component {
 
     render() {
         return (
-            <div className="container">
+            <>
                 <div className="row">
                     {this.state.products.map((p, i)=> <ProductItem addToCart={this.props.addToCart} product={p} key={i} />)}
                 </div>
-            </div>
+            </>
         )
     }
 }

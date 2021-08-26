@@ -10,7 +10,7 @@ export default class News extends Component {
         }
     }
 
-    getNews = (topic='sports') => {
+    getNews = (topic='se bikes') => {
         const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
         fetch(`https://newsapi.org/v2/everything?q=${topic}&apiKey=${API_KEY}`)
             .then(res => res.json())
@@ -37,7 +37,7 @@ export default class News extends Component {
     render = () => {
         console.log("I rendered")
         return (
-            <div className="container">
+            <>
                 <form onSubmit={this.handleSubmit} className="input-group mb-3">
                     <input type="text" className="form-control" name="topic" placeholder="Search a topic.." aria-label="Search a topic" aria-describedby="button-addon2" />
                     <button className="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
@@ -45,7 +45,7 @@ export default class News extends Component {
                 <div className="row">
                     {this.state.articles.map((a, i) => <NewsPost article={a} key={i} />)}
                 </div>
-            </div>
+            </>
         )
     }
 }

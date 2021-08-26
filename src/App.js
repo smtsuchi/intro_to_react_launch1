@@ -51,20 +51,21 @@ export default class App extends Component {
       <div>
         <Nav cart={this.state.cart} sumTotalCart={this.sumTotalCart}/>
 
-
-        <Switch>
-          <Route exact path='/' render={() => <Home/> }/>
-          <Route exact path='/about' render={() => <About name={this.state.name} my_company={this.state.company}/> }/>
-          <Route exact path='/news' render={() => <News/> }/>
-          <Route exact path='/students' render={() => <Student/> }/>
-          <Route exact path='/blog' render={() => <Blog/> }/>
-          <Route exact path='/blog/create' render={() => <CreatePost /> }/>
-          <Route exact path='/blog/:id' render={({match}) => <PostDetail my_match={match}/> }/>
-          <Route exact path='/blog/update/:id' render={({match}) => <UpdatePost my_match={match}/> }/>
-          <Route exact path='/shop' render={() => <Shop addToCart={this.addToCart}/> }/>
-          <Route exact path='/shop/:id' render={({match}) => <ProductDetail my_match={match} addToCart={this.addToCart}/> }/>
-          <Route exact path='/cart' render={() => <Cart removeFromCart={this.removeFromCart} sumTotalCart={this.sumTotalCart} cart={this.state.cart}/> }/>
-        </Switch>
+        <div className="container justify-content-center">
+          <Switch>
+            <Route exact path='/' render={() => <Home/> }/>
+            <Route exact path='/about' render={() => <About name={this.state.name} my_company={this.state.company}/> }/>
+            <Route exact path='/news' render={() => <News/> }/>
+            <Route exact path='/students' render={() => <Student/> }/>
+            <Route exact path='/blog' render={() => <Blog/> }/>
+            <Route exact path='/blog/create' render={() => <CreatePost /> }/>
+            <Route exact path='/blog/:id' render={({match}) => <PostDetail my_match={match}/> }/>
+            <Route exact path='/blog/update/:id' render={({match}) => <UpdatePost my_match={match}/> }/>
+            <Route exact path='/shop' render={() => <Shop addToCart={this.addToCart}/> }/>
+            <Route exact path='/shop/:id' render={({match}) => <ProductDetail my_match={match} addToCart={this.addToCart}/> }/>
+            <Route exact path='/cart' render={() => <Cart removeFromCart={this.removeFromCart} sumTotalCart={this.sumTotalCart} cart={this.state.cart}/> }/>
+          </Switch>
+        </div>
 
 
       </div>

@@ -5,7 +5,7 @@ export default class BlogPost extends Component {
     render() {
         const p = this.props.post
         return (
-            <div className="card col-8 mb-3">
+            <div className="card mb-3">
                 <h5 className="card-header">
                     <Link to={`/blog/${p.id}`}>{p.title}</Link>
                 </h5>
