@@ -13,19 +13,25 @@ export default class Nav extends Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                                <Link className="nav-link active" aria-current="page" to="/"><i className="fas fa-home"></i></Link>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
-                                <Link className="nav-link" to="/news">News</Link>
+                                <Link className="nav-link" to="/news"><i className="fas fa-newspaper"></i></Link>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link className="nav-link" to="/students">Students</Link>
+                            </li> */}
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/blog"><i className="fas fa-square-full"></i></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/blog">Blog</Link>
+                                <Link className="nav-link" to="/shop"><i className="fas fa-store"></i></Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/cart"><i className="fas fa-cart-plus"></i> {this.props.cart.length}|{this.props.sumTotalCart(this.props.cart)}</Link>
                             </li>
                         </ul>
                     </div>

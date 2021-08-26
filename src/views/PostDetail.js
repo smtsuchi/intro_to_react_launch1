@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export default class PostDetail extends Component {
     constructor() {
         super();
-        this.state = { post: {} }
+        this.state = {
+            post: {},
+            redirect: null,
+        }
     }
 
     componentDidMount = async () => {
-        const res = await fetch(`http://127.0.0.1:8000/api/posts/${this.props.my_match.params.id}`);
+        const res = await fetch(`http://127.0.0.1:8000/api/posts/${this.props.my_match.params.id}/`);
         const data = await res.json();
         console.log(data)
         this.setState({ post: data })
     }
-    handleDelete = () => {console.log("delete")}
+    handleDelete = async () => {
+        const res = await fetch(`http://127.0.0.1:8000/api/posts/delete/${this.props.my_match.params.id}/`, {method: "DELETE"})
+        const data = await res.json()
+        console.log(data)
+        this.setState({redirect: true})
+    }
     render() {
         const p = this.state.post
+        if (this.state.redirect){
+            return <Redirect to='/blog'/>
+        }
         return (
             <div className="card col-8 mb-3">
                 <h5 className="card-header">{p.title}</h5>
@@ -46,7 +57,7 @@ export default class PostDetail extends Component {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" onClick={()=>this.handleDelete()} className="btn btn-danger">Delete</button>
+                                    <button type="button" onClick={()=>this.handleDelete()} data-bs-dismiss="modal" className="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         </div>

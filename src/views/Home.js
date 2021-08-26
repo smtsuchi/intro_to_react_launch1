@@ -15,7 +15,7 @@ export default class Home extends Component {
     }
 
     handleDelete = () =>{
-        fetch(`http://127.0.0.1:8000/api/posts/delete/10/`, {
+        fetch(`http://127.0.0.1:8000/api/posts/delete/9/`, {
             method: "DELETE"
         })
             .then(res => res.json())
@@ -29,7 +29,6 @@ export default class Home extends Component {
         return (
             <div>
                 <h1>This is the Home Page</h1>
-                <button onClick={()=>this.handleDelete()}>Delete from Django</button>
             </div>
         )
     }
