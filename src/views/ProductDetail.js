@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class ProductDetail extends Component {
     constructor() {
@@ -17,6 +18,10 @@ export default class ProductDetail extends Component {
     render() {
         const p = this.state.product
         return (
+            <>
+            <div className="d-flex my-2">
+                <Link to="/shop" className="text-dark mx-auto py-2 px-4"><i class="fas fa-arrow-left"></i></Link>
+            </div>
             <div className="container card col-12 col-lg-6 text-dark text-decoration-none mb-3">
                 <h5 className="card-header">
                     <div>{p.product_name}</div>
@@ -28,6 +33,7 @@ export default class ProductDetail extends Component {
                     <button onClick={()=>this.props.addToCart(p)} className="btn btn-primary">Add to cart</button>
                 </div>
             </div>
+            </>
         )
     }
 }

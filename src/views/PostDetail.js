@@ -17,7 +17,11 @@ export default class PostDetail extends Component {
         this.setState({ post: data })
     }
     handleDelete = async () => {
-        const res = await fetch(`http://127.0.0.1:8000/api/posts/delete/${this.props.my_match.params.id}/`, {method: "DELETE"})
+        const token = JSON.parse(localStorage.getItem('user')).token;
+        const res = await fetch(`http://127.0.0.1:8000/api/posts/delete/${this.props.my_match.params.id}/`, {
+            method: "DELETE",
+            headers: {"Authorization": `Token ${token}`}
+        })
         const data = await res.json()
         console.log(data)
         this.setState({redirect: true})
@@ -28,16 +32,20 @@ export default class PostDetail extends Component {
             return <Redirect to='/blog'/>
         }
         return (
-            <div className="card col-8 mb-3">
+            <>
+            <div className="d-flex my-2">
+                <Link to="/blog" className="text-dark mx-auto py-2 px-4"><i class="fas fa-arrow-left"></i></Link>
+            </div>
+            <div className="card  mb-3">
                 <h5 className="card-header">{p.title}</h5>
                 <div className="card-body">
                     <h5 className="card-title">{p.content}</h5>
                     <p className="card-text">By {p.author} on {p.date_posted}</p>
                 </div>
 
-                <div className="container">
+                <div className="container py-2">
                     {/* update */}
-                    <Link to={`/blog/update/${p.id}`} className="btn btn-secondary" >Update</Link>
+                    <Link to={`/blog/update/${p.id}`} className="btn btn-secondary me-3" >Update</Link>
                     {/* delete */}
 
                     <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -65,6 +73,7 @@ export default class PostDetail extends Component {
 
                 </div>
             </div>
+            </>
         )
     }
 }

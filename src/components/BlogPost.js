@@ -7,7 +7,7 @@ export default class BlogPost extends Component {
         return (
             <div className="card mb-3">
                 <h5 className="card-header">
-                    <Link to={`/blog/${p.id}`}>{p.title}</Link>
+                    <Link className="text-dark text-decoration-none" to={`/blog/${p.id}`}>{p.title}</Link>
                 </h5>
                 <div className="card-body">
                     <h5 className="card-title">{p.content}</h5>

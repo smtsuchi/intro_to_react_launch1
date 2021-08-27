@@ -15,24 +15,42 @@ export default class Nav extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/"><i className="px-5 fas fa-home"></i></Link>
                             </li>
-                            {/* <li className="nav-item">
-                                <Link className="nav-link" to="/about">About</Link>
-                            </li> */}
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/news"><i className="px-5 fas fa-newspaper"></i></Link>
-                            </li>
-                            {/* <li className="nav-item">
-                                <Link className="nav-link" to="/students">Students</Link>
-                            </li> */}
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/blog"><i className="px-5 fas fa-square-full"></i></Link>
-                            </li>
+
+                            {
+                                this.props.isLoggedIn ?
+                                <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/news"><i className="px-5 fas fa-newspaper"></i></Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/blog"><i className="px-5 fas fa-square-full"></i></Link>
+                                </li>
+                                </>
+                                :
+                                <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/register">Register</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">Login</Link>
+                                </li>
+                                </>
+                            }
+
                             <li className="nav-item">
                                 <Link className="nav-link" to="/shop"><i className="px-5 fas fa-store"></i></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/cart"><i className="px-5 fas fa-cart-plus"></i>{this.props.cart.length} | ${this.props.sumTotalCart(this.props.cart)}</Link>
                             </li>
+                            {
+                                this.props.isLoggedIn ?
+                                <li className="nav-item">
+                                    <Link className="nav-link" onClick={()=>this.props.handleLogout()} to="/">Log Out</Link>
+                                </li>
+                                :
+                                null
+                            }
                         </ul>
                     </div>
                 </div>
