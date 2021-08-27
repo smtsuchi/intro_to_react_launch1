@@ -12,7 +12,7 @@ export default class Shop extends Component {
     componentDidMount = async () => {
         const res = await fetch("http://127.0.0.1:8000/api/products/");
         const data = await res.json();
-        console.log(data)
+        // console.log(data)
         this.setState({products: data})
     }
 

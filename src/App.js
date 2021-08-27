@@ -55,26 +55,62 @@ export default class App extends Component {
       token: data.token,
       username,
     }
-    this.setState({
-      isLoggedIn: true,
-      user,
-    })
-    localStorage.setItem('user', JSON.stringify(user))
+    
+    if (user.token){
+      this.setState({
+        isLoggedIn: true,
+        user,
+      })
+      localStorage.setItem('user', JSON.stringify(user))
+      this.getCart();
+    }
+    
   }
 
   handleLogout = () => {
     localStorage.removeItem('user');
     this.setState({
       isLoggedIn: false,
-      user: null
+      user: null,
+      cart:[]
     })
   }
 
-  
+  addToCartAPI = async (p_id) => {
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    const res = await fetch("http://127.0.0.1:8000/api/cart/add/",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      },
+      body: JSON.stringify({id:p_id})
+    });
+    const data = await res.json()
+    console.log(data)
+  }
+
   addToCart = (product) => {
+    if (this.state.isLoggedIn){
+      this.addToCartAPI(product.id);
+    }
     this.setState({
       cart: this.state.cart.concat(product)
     })
+  }
+
+  removeFromCartAPI = async (p_id) => {
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    const res = await fetch("http://127.0.0.1:8000/api/cart/delete/",{
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      },
+      body: JSON.stringify({id:p_id})
+    });
+    const data = await res.json()
+    console.log(data)
   }
   removeFromCart(product){
     let newCart = [...this.state.cart]
@@ -84,8 +120,12 @@ export default class App extends Component {
         break;
       }
     }
+    if (this.state.isLoggedIn){
+      this.removeFromCartAPI(product.id);
+    } 
     this.setState({cart: newCart})
   }
+
   sumTotalCart = (cartList) => {
     let total = 0;
     for (let item of cartList){
@@ -94,10 +134,26 @@ export default class App extends Component {
     return total.toFixed(2)
   }
 
+  getCart = async () => {
+    const token = JSON.parse(localStorage.getItem('user')).token;
+      const res = await fetch("http://127.0.0.1:8000/api/cart/get/",{
+        method: "GET",
+        headers: {"Authorization": `Token ${token}`}
+      });
+      const data = await res.json()
+      // console.log(data)
+      this.setState({cart:data})
+  }
+  componentDidMount = () => {
+    if (localStorage.getItem('user')){
+      this.getCart();
+    }
+  }
+
   render() {
     return (
       <div>
-        <Nav isLoggedIn={this.state.isLoggedIn} cart={this.state.cart} sumTotalCart={this.sumTotalCart} handleLogout={this.handleLogout}/>
+        <Nav user={this.state.user} isLoggedIn={this.state.isLoggedIn} cart={this.state.cart} sumTotalCart={this.sumTotalCart} handleLogout={this.handleLogout}/>
 
         <div className="container justify-content-center">
           <Switch>
